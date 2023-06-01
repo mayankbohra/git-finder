@@ -1,8 +1,11 @@
+const CACHE_NAME = 'git-finder-cache';
+
 self.addEventListener('install', (event) => {
     event.waitUntil(
-      caches.open('git-finder-cache')
+      caches.open(CACHE_NAME)
         .then((cache) => {
           return cache.addAll([
+            '/',
             '/index.html',
             '/script.js',
             '/styles.css',
@@ -29,7 +32,7 @@ self.addEventListener('install', (event) => {
       caches.keys().then((cacheNames) => {
         return Promise.all(
           cacheNames.filter((cacheName) => {
-            return cacheName !== 'git-finder-cache';
+            return cacheName !== CACHE_NAME;
           }).map((cacheName) => {
             return caches.delete(cacheName);
           })
