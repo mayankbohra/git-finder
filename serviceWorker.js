@@ -1,7 +1,7 @@
-self.addEventListener('install', function(event) {
+self.addEventListener('install', (event) => {
     event.waitUntil(
       caches.open('git-finder-cache')
-        .then(function(cache) {
+        .then((cache) => {
           return cache.addAll([
             '/index.html',
             '/script.js',
@@ -12,10 +12,10 @@ self.addEventListener('install', function(event) {
     );
   });
   
-  self.addEventListener('fetch', function(event) {
+  self.addEventListener('fetch', (event) => {
     event.respondWith(
       caches.match(event.request)
-        .then(function(response) {
+        .then((response) => {
           if (response) {
             return response; // Serve from cache
           }
@@ -24,13 +24,13 @@ self.addEventListener('install', function(event) {
     );
   });
   
-  self.addEventListener('activate', function(event) {
+  self.addEventListener('activate', (event) => {
     event.waitUntil(
-      caches.keys().then(function(cacheNames) {
+      caches.keys().then((cacheNames) => {
         return Promise.all(
-          cacheNames.filter(function(cacheName) {
+          cacheNames.filter((cacheName) => {
             return cacheName !== 'git-finder-cache';
-          }).map(function(cacheName) {
+          }).map((cacheName) => {
             return caches.delete(cacheName);
           })
         );
