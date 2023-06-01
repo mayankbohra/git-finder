@@ -1,7 +1,7 @@
 {
     "name": "GitFinder",
     "short_name": "GitFinder",
-    "start_url": "/",
+    "start_url": "./",
     "background_color": "#141D2F",
     "display": "standalone",
     "icons": [
