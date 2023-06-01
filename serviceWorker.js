@@ -5,11 +5,11 @@ self.addEventListener('install', (event) => {
         caches.open(CACHE_NAME)
             .then((cache) => {
                 return cache.addAll([
-                    '/',
+                    './',
                     './index.html',
                     './script.js',
                     './styles.css',
-                    './assets/images/android-chrome-192x192.png',
+                    './assets/images/android-chrome-192x192.png'
                 ]);
             })
     );
