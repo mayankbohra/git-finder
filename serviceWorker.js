@@ -2,44 +2,41 @@ const CACHE_NAME = 'git-finder-cache';
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
-      caches.open(CACHE_NAME)
-        .then((cache) => {
-          return cache.addAll([
-            '/',
-            '/index.html',
-            '/script.js',
-            '/styles.css',
-            '/assets',
-            '/mayankbohra.github.io/git-finder',
-            '/mayankbohra.github.io'
-          ]);
-        })
+        caches.open(CACHE_NAME)
+            .then((cache) => {
+                return cache.addAll([
+                    '/',
+                    './index.html',
+                    './script.js',
+                    './styles.css',
+                    './assets/images/android-chrome-192x192.png',
+                ]);
+            })
     );
-  });
-  
-  self.addEventListener('fetch', (event) => {
+});
+
+self.addEventListener('fetch', (event) => {
     event.respondWith(
-      caches.match(event.request)
-        .then((response) => {
-          if (response) {
-            return response; // Serve from cache
-          }
-          return fetch(event.request); // Fetch from network
+        caches.match(event.request)
+            .then((response) => {
+                if (response) {
+                    return response; // Serve from cache
+                }
+                return fetch(event.request); // Fetch from network
+            })
+    );
+});
+
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.filter((cacheName) => {
+                    return cacheName !== CACHE_NAME;
+                }).map((cacheName) => {
+                    return caches.delete(cacheName);
+                })
+            );
         })
     );
-  });
-  
-  self.addEventListener('activate', (event) => {
-    event.waitUntil(
-      caches.keys().then((cacheNames) => {
-        return Promise.all(
-          cacheNames.filter((cacheName) => {
-            return cacheName !== CACHE_NAME;
-          }).map((cacheName) => {
-            return caches.delete(cacheName);
-          })
-        );
-      })
-    );
-  });
-  
+});
