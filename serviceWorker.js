@@ -11,7 +11,7 @@ self.addEventListener('install', (event) => {
             '/styles.css',
             '/assets',
             '/git-finder',
-            '/mayankbohra.github.io/git-finder/'
+            '/mayankbohra.github.io'
           ]);
         })
     );
